@@ -13,12 +13,12 @@ class TestGoogleMapApi:
             get_resourse,
             delete_resourse
     ):
-        self.base_url = base_url
-        self.key = key
-        self.post_resourse = post_resourse
-        self.get_resourse = get_resourse
-        self.delete_resourse = delete_resourse
-        self.list_place_id = []
+        self.__base_url = base_url
+        self.__key = key
+        self.__post_resourse = post_resourse
+        self.__get_resourse = get_resourse
+        self.__delete_resourse = delete_resourse
+        self.__list_place_id = []
 
     # тело для создания локации
     @staticmethod
@@ -49,17 +49,17 @@ class TestGoogleMapApi:
 
     # отправить метод POST
     def __send_post_method(self):
-        full_post_url = self.base_url + self.post_resourse + self.key
+        full_post_url = self.__base_url + self.__post_resourse + self.__key
         return requests.post(full_post_url, json=self.__body_to_creating_location())
 
     # отправить метод Get
     def __send_get_method(self, place_id):
-        full_get_url = self.base_url + self.get_resourse + self.key + "&place_id=" + place_id
+        full_get_url = self.__base_url + self.__get_resourse + self.__key + "&place_id=" + place_id
         return requests.get(full_get_url)
 
     # отправить метод Delete
     def __send_delete_method(self, place_id):
-        full_delete_url = self.base_url + self.delete_resourse + self.key
+        full_delete_url = self.__base_url + self.__delete_resourse + self.__key
         return requests.delete(full_delete_url, json=self.__body_to_remove_location(place_id))
 
     # добавить в текстовый файл
@@ -89,15 +89,15 @@ class TestGoogleMapApi:
     # переместить в переменную place_id из текстового файла
     def place_id_move_to_variable(self, name_file):
         for place_id in self.__reading_file(name_file):
-            self.list_place_id.append(place_id)
+            self.__list_place_id.append(place_id)
         print("Данные из текстового файла помещены в переменную")
 
     # удалить локацию по place_id
     def delete_location(self, number_to_delete):
         print(f"Локация №{number_to_delete} с place_id - "
-              f"{self.list_place_id[number_to_delete - 1]} удалена.")
+              f"{self.__list_place_id[number_to_delete - 1]} удалена.")
         return self.__send_delete_method(
-            self.list_place_id[number_to_delete - 1]
+            self.__list_place_id[number_to_delete - 1]
         )
 
     # сортировка place_id на существующие и несуществующие локации
