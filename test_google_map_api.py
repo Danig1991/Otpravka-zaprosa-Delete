@@ -60,7 +60,7 @@ class TestGoogleMapApi:
     # отправить метод Delete
     def __send_delete_method(self, place_id):
         full_delete_url = self.base_url + self.delete_resourse + self.key
-        return requests.get(full_delete_url, json=self.__body_to_remove_location(place_id))
+        return requests.delete(full_delete_url, json=self.__body_to_remove_location(place_id))
 
     # добавить в текстовый файл
     @staticmethod
